@@ -2,7 +2,9 @@ import { NodeEditor, GetSchemes, ClassicPreset } from "rete";
 import { AreaPlugin, AreaExtensions } from "rete-area-plugin";
 import {
   ConnectionPlugin,
-  Presets as ConnectionPresets
+  Presets as ConnectionPresets,
+  getSourceTarget,
+  ClassicFlow
 } from "rete-connection-plugin";
 import { VuePlugin, Presets, VueArea2D } from "rete-vue-plugin";
 
@@ -26,7 +28,23 @@ export async function createEditor(container: HTMLElement) {
 
   render.addPreset(Presets.classic.setup());
 
-  connection.addPreset(ConnectionPresets.classic.setup());
+  connection.addPreset(() => new ClassicFlow({
+    makeConnection(from, to, context) {
+      const [source, target] = getSourceTarget(from, to) || [null, null];
+      const { editor } = context;
+
+      if (source && target) {
+        console.debug("Adding connection", source, target);
+        editor.addConnection(new ClassicPreset.Connection(
+          editor.getNode(source.nodeId) ?? (() => { throw new Error(`Node with id ${source.nodeId} not found`); })(),
+          source.key,
+          editor.getNode(target.nodeId) ?? (() => { throw new Error(`Node with id ${target.nodeId} not found`); })(),
+          target.key
+        ));
+        return true;
+      }
+    }
+  }))
 
   editor.use(area);
   area.use(connection);
@@ -52,7 +70,7 @@ export async function createEditor(container: HTMLElement) {
 
   await area.translate(b.id, { x: 320, y: 0 });
 
-  await editor.addConnection(new ClassicPreset.Connection(a, "a", b, "b"));
+  //await editor.addConnection(new ClassicPreset.Connection(a, "a", b, "b"));
 
   AreaExtensions.zoomAt(area, editor.getNodes());
 
