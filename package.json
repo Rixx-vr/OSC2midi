@@ -11,11 +11,15 @@
   },
   "dependencies": {
     "vue": "^3.5.13",
+    "rete-vue-plugin": "^2.1.2",
+    "rete-connection-plugin": "^2.0.5",
     "@tauri-apps/api": "^2",
     "@tauri-apps/plugin-opener": "^2"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.2.1",
+    "rete-vue-plugin": "^2.1.2",
+    "rete-connection-plugin": "^2.0.5",
     "vite": "^6.0.3",
     "@tauri-apps/cli": "^2"
   }

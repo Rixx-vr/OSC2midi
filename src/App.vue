@@ -11,22 +11,26 @@ async function greet() {
 }
 </script>
 
+
+<script>
+import { defineComponent } from 'vue'
+import { createEditor } from './editor'
+
+export default defineComponent({
+  mounted(){
+    createEditor(this.$refs.rete)
+  }
+})
+</script>
+
 <template>
   <main class="container">
     <h1>Welcome to Tauri + Vue</h1>
-
-    <div class="row">
-      <a href="https://vite.dev" target="_blank">
-        <img src="/vite.svg" class="logo vite" alt="Vite logo" />
-      </a>
-      <a href="https://tauri.app" target="_blank">
-        <img src="/tauri.svg" class="logo tauri" alt="Tauri logo" />
-      </a>
-      <a href="https://vuejs.org/" target="_blank">
-        <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-      </a>
-    </div>
     <p>Click on the Tauri, Vite, and Vue logos to learn more.</p>
+
+
+    
+
 
     <form class="row" @submit.prevent="greet">
       <input id="greet-input" v-model="name" placeholder="Enter a name..." />
@@ -34,6 +38,7 @@ async function greet() {
     </form>
     <p>{{ greetMsg }}</p>
   </main>
+  <div class="rete" ref="rete"></div>
 </template>
 
 <style scoped>
@@ -155,6 +160,17 @@ button {
   button:active {
     background-color: #0f0f0f69;
   }
+}
+
+body {
+  margin: 0;
+  background-color: #0f0f0f98;
+}
+
+.rete {
+  background-color: #2f2f2f;
+  width: 100vw;
+  height: 100vh;
 }
 
 </style>
