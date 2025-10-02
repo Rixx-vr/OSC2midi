@@ -1,6 +1,5 @@
-use rosc::{encoder, OscMessage, OscPacket, OscType};
 use midir::{MidiInput, MidiInputConnection, MidiInputPort, MidiOutput};
-use wmidi::{MidiMessage, Note};
+use wmidi::MidiMessage;
 use std::error::Error;
 
 
